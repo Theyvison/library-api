@@ -3,12 +3,14 @@ package io.github.theyvison.libraryapi.repository;
 import io.github.theyvison.libraryapi.model.Autor;
 import io.github.theyvison.libraryapi.model.GeneroLivro;
 import io.github.theyvison.libraryapi.model.Livro;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
+import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -74,5 +76,16 @@ class LivroRepositoryTest {
     void deletar() {
         var idLivro = UUID.fromString("952e56f4-db95-45f2-95bc-9aab3b9d2048");
         livroRepository.deleteById(idLivro);
+    }
+
+    @Test
+    @Transactional
+    void buscarLivroTest() {
+        UUID idLivro = UUID.fromString("cbc7e629-5bda-4359-9bce-863143c78c56");
+        Livro livro = livroRepository.findById(idLivro).orElse(null);
+        System.out.println("Livro:");
+        System.out.println(livro.getTitulo());
+        System.out.println("Autor(a):");
+        System.out.println(livro.getAutor().getNome());
     }
 }
