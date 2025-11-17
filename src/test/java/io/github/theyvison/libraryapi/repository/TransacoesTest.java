@@ -14,4 +14,9 @@ public class TransacoesTest {
     void transacaoSimplesTest() {
         transacaoService.executar();
     }
+
+    @Test
+    void transacaoEstadoManaged() {
+        transacaoService.atualizacaoSemAtualizar();
+    }
 }
