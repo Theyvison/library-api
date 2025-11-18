@@ -2,6 +2,7 @@ package io.github.theyvison.libraryapi.service;
 
 import io.github.theyvison.libraryapi.model.Autor;
 import io.github.theyvison.libraryapi.repository.AutorRepository;
+import io.github.theyvison.libraryapi.validator.AutorValidador;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,12 +12,15 @@ import java.util.UUID;
 @Service
 public class AutorService {
     private final AutorRepository autorRepository;
+    private final AutorValidador autorValidador;
 
-    public AutorService(AutorRepository autorRepository) {
+    public AutorService(AutorRepository autorRepository, AutorValidador autorValidador) {
         this.autorRepository = autorRepository;
+        this.autorValidador = autorValidador;
     }
 
     public Autor salvar(Autor autor) {
+        autorValidador.validar(autor);
         return autorRepository.save(autor);
     }
 
@@ -24,6 +28,7 @@ public class AutorService {
         if (autor.getId() == null) {
             throw new IllegalArgumentException("Para atualizar, é necessário que o autor já esteja salvo na bae.");
         }
+        autorValidador.validar(autor);
         autorRepository.save(autor);
     }
 
