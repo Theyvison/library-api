@@ -1,4 +1,4 @@
-package io.github.theyvison.libraryapi.controller;
+package io.github.theyvison.libraryapi.controller.dto;
 
 import io.github.theyvison.libraryapi.model.Autor;
 

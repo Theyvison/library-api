@@ -1,9 +1,9 @@
 package io.github.theyvison.libraryapi.controller;
 
+import io.github.theyvison.libraryapi.controller.dto.AutorDTO;
 import io.github.theyvison.libraryapi.model.Autor;
 import io.github.theyvison.libraryapi.service.AutorService;
 import jakarta.servlet.ServletRequest;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
