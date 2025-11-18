@@ -5,6 +5,7 @@ import io.github.theyvison.libraryapi.model.Autor;
 import io.github.theyvison.libraryapi.repository.AutorRepository;
 import io.github.theyvison.libraryapi.repository.LivroRepository;
 import io.github.theyvison.libraryapi.validator.AutorValidador;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,16 +13,11 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class AutorService {
     private final AutorRepository autorRepository;
     private final AutorValidador autorValidador;
     private final LivroRepository livroRepository;
-
-    public AutorService(AutorRepository autorRepository, AutorValidador autorValidador, LivroRepository livroRepository) {
-        this.autorRepository = autorRepository;
-        this.autorValidador = autorValidador;
-        this.livroRepository = livroRepository;
-    }
 
     public Autor salvar(Autor autor) {
         autorValidador.validar(autor);
