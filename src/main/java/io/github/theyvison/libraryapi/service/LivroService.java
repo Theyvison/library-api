@@ -1,5 +1,6 @@
 package io.github.theyvison.libraryapi.service;
 
+import io.github.theyvison.libraryapi.model.Livro;
 import io.github.theyvison.libraryapi.repository.LivroRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -9,4 +10,8 @@ import org.springframework.stereotype.Service;
 public class LivroService {
 
     private final LivroRepository livroRepository;
+
+    public Livro salvar(Livro livro) {
+        return livroRepository.save(livro);
+    }
 }
