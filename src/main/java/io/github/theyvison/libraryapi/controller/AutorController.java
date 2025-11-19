@@ -7,6 +7,7 @@ import io.github.theyvison.libraryapi.exceptions.RegistroDuplicadoException;
 import io.github.theyvison.libraryapi.model.Autor;
 import io.github.theyvison.libraryapi.service.AutorService;
 import jakarta.servlet.ServletRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +27,7 @@ public class AutorController {
     private final AutorService autorService;
 
     @PostMapping
-    public ResponseEntity<Object> salvar(@RequestBody AutorDTO autor) {
+    public ResponseEntity<Object> salvar(@RequestBody @Valid AutorDTO autor) {
         try {
             var autorEntidade = autor.mapearParaAutor();
             autorService.salvar(autorEntidade);
