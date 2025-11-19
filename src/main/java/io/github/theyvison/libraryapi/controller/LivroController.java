@@ -1,9 +1,7 @@
 package io.github.theyvison.libraryapi.controller;
 
 import io.github.theyvison.libraryapi.controller.dto.CadastroLivroDTO;
-import io.github.theyvison.libraryapi.controller.dto.ErroResposta;
 import io.github.theyvison.libraryapi.controller.mappers.LivroMapper;
-import io.github.theyvison.libraryapi.exceptions.RegistroDuplicadoException;
 import io.github.theyvison.libraryapi.model.Livro;
 import io.github.theyvison.libraryapi.service.LivroService;
 import jakarta.validation.Valid;
@@ -23,15 +21,10 @@ public class LivroController implements GenericController {
     private final LivroMapper livroMapper;
 
     @PostMapping
-    public ResponseEntity<Object> salvar(@RequestBody @Valid CadastroLivroDTO dto) {
-        try {
-            Livro livro = livroMapper.toEntity(dto);
-            livroService.salvar(livro);
-            var url = gerarHeaderLocation(livro.getId());
-            return ResponseEntity.created(url).build();
-        } catch (RegistroDuplicadoException e) {
-            var erroDTO = ErroResposta.conflito(e.getMessage());
-            return ResponseEntity.status(erroDTO.status()).body(erroDTO);
-        }
+    public ResponseEntity<Void> salvar(@RequestBody @Valid CadastroLivroDTO dto) {
+        Livro livro = livroMapper.toEntity(dto);
+        livroService.salvar(livro);
+        var url = gerarHeaderLocation(livro.getId());
+        return ResponseEntity.created(url).build();
     }
 }

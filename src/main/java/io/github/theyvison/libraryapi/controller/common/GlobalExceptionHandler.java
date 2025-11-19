@@ -2,6 +2,8 @@ package io.github.theyvison.libraryapi.controller.common;
 
 import io.github.theyvison.libraryapi.controller.dto.ErroCampo;
 import io.github.theyvison.libraryapi.controller.dto.ErroResposta;
+import io.github.theyvison.libraryapi.exceptions.OperacaoNaoPermitidaException;
+import io.github.theyvison.libraryapi.exceptions.RegistroDuplicadoException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -24,5 +26,26 @@ public class GlobalExceptionHandler {
                 .map(fe -> new ErroCampo(fe.getField(), fe.getDefaultMessage()))
                 .collect(Collectors.toUnmodifiableList());
         return new ErroResposta(HttpStatus.UNPROCESSABLE_ENTITY.value(), "Erro de validação.", listaErros);
+    }
+
+    @ExceptionHandler(RegistroDuplicadoException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ErroResposta handleRegistroDuplicadoException(RegistroDuplicadoException e) {
+        return ErroResposta.conflito(e.getMessage());
+    }
+
+    @ExceptionHandler(OperacaoNaoPermitidaException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErroResposta operacaoNaoPermitidaException(OperacaoNaoPermitidaException e) {
+        return ErroResposta.respostaPadrao(e.getMessage());
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ErroResposta handleErrosNaoTratados(RuntimeException e) {
+        return new ErroResposta(HttpStatus
+                .INTERNAL_SERVER_ERROR.value(),
+                "Occoreu um erro inesperado. Entre em contato com a administração do sistema",
+                List.of());
     }
 }
