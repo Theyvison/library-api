@@ -1,0 +1,13 @@
+package io.github.theyvison.libraryapi.controller.mappers;
+
+import io.github.theyvison.libraryapi.controller.dto.AutorDTO;
+import io.github.theyvison.libraryapi.model.Autor;
+import org.mapstruct.Mapper;
+
+@Mapper(componentModel = "spring")
+public interface AutorMapper {
+
+    Autor toEntity(AutorDTO dto);
+
+    AutorDTO toDTO(Autor autor);
+}
