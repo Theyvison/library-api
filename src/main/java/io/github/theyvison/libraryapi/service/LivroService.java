@@ -5,6 +5,7 @@ import io.github.theyvison.libraryapi.model.Livro;
 import io.github.theyvison.libraryapi.repository.LivroRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -45,6 +46,10 @@ public class LivroService {
 
         if (genero != null) {
             specs = specs.and(generoEqual(genero));
+        }
+
+        if (anoPublicacao != null) {
+            specs = specs.and(anoPublicacaoEqual(anoPublicacao));
         }
 
         return livroRepository.findAll(specs);
