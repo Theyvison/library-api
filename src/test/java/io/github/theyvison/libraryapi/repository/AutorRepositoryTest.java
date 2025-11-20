@@ -3,7 +3,6 @@ package io.github.theyvison.libraryapi.repository;
 import io.github.theyvison.libraryapi.model.Autor;
 import io.github.theyvison.libraryapi.model.GeneroLivro;
 import io.github.theyvison.libraryapi.model.Livro;
-import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

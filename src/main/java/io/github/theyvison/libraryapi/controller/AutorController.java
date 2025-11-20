@@ -1,10 +1,7 @@
 package io.github.theyvison.libraryapi.controller;
 
 import io.github.theyvison.libraryapi.controller.dto.AutorDTO;
-import io.github.theyvison.libraryapi.controller.dto.ErroResposta;
 import io.github.theyvison.libraryapi.controller.mappers.AutorMapper;
-import io.github.theyvison.libraryapi.exceptions.OperacaoNaoPermitidaException;
-import io.github.theyvison.libraryapi.exceptions.RegistroDuplicadoException;
 import io.github.theyvison.libraryapi.model.Autor;
 import io.github.theyvison.libraryapi.service.AutorService;
 import jakarta.servlet.ServletRequest;
@@ -12,7 +9,6 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
