@@ -3,6 +3,7 @@ package io.github.theyvison.libraryapi.service;
 import io.github.theyvison.libraryapi.model.GeneroLivro;
 import io.github.theyvison.libraryapi.model.Livro;
 import io.github.theyvison.libraryapi.repository.LivroRepository;
+import io.github.theyvison.libraryapi.validator.LivroValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -18,8 +19,10 @@ import static io.github.theyvison.libraryapi.repository.specs.LivroSpecs.*;
 public class LivroService {
 
     private final LivroRepository livroRepository;
+    private final LivroValidator livroValidator;
 
     public Livro salvar(Livro livro) {
+        livroValidator.validar(livro);
         return livroRepository.save(livro);
     }
 
@@ -62,6 +65,8 @@ public class LivroService {
         if (livro.getId() == null) {
             throw new IllegalArgumentException("Para atualizar, é necessário que o livro já esteja salvo na base.");
         }
+
+        livroValidator.validar(livro);
 
         livroRepository.save(livro);
     }
