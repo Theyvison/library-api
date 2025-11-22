@@ -27,15 +27,16 @@ public class SecurityConfiguration {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .httpBasic(Customizer.withDefaults())
-                //.formLogin(configurer -> configurer.loginPage("/login").permitAll())
-                .formLogin(Customizer.withDefaults())
+                .formLogin(configurer -> configurer.loginPage("/login").permitAll())
                 .authorizeHttpRequests(authorize -> {
                     authorize.requestMatchers("/login/**").permitAll();
                     authorize.requestMatchers(HttpMethod.POST, "/usuarios/**").permitAll();
                     authorize.anyRequest().authenticated();
                 })
                 .oauth2Login(oauth2 -> {
-                    oauth2.successHandler(loginSocialSuccessHandler);
+                    oauth2
+                        .loginPage("/login")
+                        .successHandler(loginSocialSuccessHandler);
                 })
                 .build();
     }
