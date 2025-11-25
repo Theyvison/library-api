@@ -16,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
+import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings;
 import org.springframework.security.oauth2.server.authorization.settings.ClientSettings;
 import org.springframework.security.oauth2.server.authorization.settings.OAuth2TokenFormat;
 import org.springframework.security.oauth2.server.authorization.settings.TokenSettings;
@@ -96,5 +97,26 @@ public class AuthorizationServerConfiguration {
     @Bean
     public JwtDecoder jwtDecoder(JWKSource<SecurityContext> jwkSource) {
         return OAuth2AuthorizationServerConfiguration.jwtDecoder(jwkSource);
+    }
+
+    @Bean
+    public AuthorizationServerSettings authorizationServerSettings() {
+        return AuthorizationServerSettings
+                .builder()
+                // endpoint para obtenção do token
+                .tokenEndpoint("/oauth2/token")
+                // endpoint para introspecção do token (introspecção -> verificação da validade do token)
+                .tokenIntrospectionEndpoint("/oauth2/introspect")
+                // endpoint para revogação do token (revogação -> invalidar o token)
+                .tokenRevocationEndpoint("/oauth2/revoke")
+                // endpoint para autorização
+                .authorizationEndpoint("/oauth2/authorize")
+                // endpoint para o user info (OpenID Connect)
+                .oidcUserInfoEndpoint("/oauth2/userinfo")
+                // endpoint para o JWK Set
+                .jwkSetEndpoint("/oauth2/jwks")
+                // endpoint para logout (OpenID Connect)
+                .oidcLogoutEndpoint("/oauth2/logout")
+                .build();
     }
 }
