@@ -1,6 +1,8 @@
 spring:
   application:
     name: libraryapi
+  profiles:
+    active: production
   datasource:
     url: jdbc:postgresql://localhost:5432/library
     username: postgres
@@ -45,3 +47,12 @@ management:
 
 springdoc:
   override-with-generic-response: false
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: production
+  jpa:
+    show-sql: false
